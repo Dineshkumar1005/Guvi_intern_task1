@@ -4,10 +4,9 @@ $dbusername = "root";
 $dbpassword = "";
 $dbname = "guvi";
 
-// Create connection
 $conn = new mysqli($host, $dbusername, $dbpassword, $dbname);
 
-// Check connection
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -29,10 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response['success'] = false;
         $response['message'] = "Email already exists.";
     } else {
-        // Hash the password before storing
+        
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-        // Insert new user into the database
+
         $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $hashed_password);
 
